@@ -12,6 +12,39 @@
     <link href="main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <div class="wrapper">
+      <div class="header">
+        <h1>Enter a country</h1>
+        <!-- this has to be a dropdown menu with different countries from a country API -->
+        <form>
+          <label for="currentCountryAndCurrency"
+            >Please enter the country you are visiting from:</label
+          >
+          <select name="currenctCountry" id="currenctCountry">
+            <option value="usa-placeholder">USA-placeholder</option>
+            <option value="eng-placeholder">England-placeholder</option>
+            <option value="jpn-placeholder">Japan-placeholder</option>
+            <option value="gua-placeholder">Guatemala-placeholder</option>
+          </select>
+          <input type="submit" value="Submit" />
+        </form>
+        <form>
+          <label for="foreignCountryAndCurrency">Enter a country:</label>
+          <!-- this dropdown menu is all placeholder at the moment. 
+               it will get replaced via JS -->
+          <select name="foreignCountryName" id="countryName">
+            <option value="usa-placeholder">USA-placeholder</option>
+            <option value="eng-placeholder">England-placeholder</option>
+            <option value="jpn-placeholder">Japan-placeholder</option>
+            <option value="gua-placeholder">Guatemala-placeholder</option>
+          </select>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <p id="js-error-message" class="error-message"></p>
+      <section class="results hidden"></section>
+    </div>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
