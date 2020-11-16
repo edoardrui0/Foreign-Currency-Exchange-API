@@ -27,18 +27,26 @@ function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    let currentCurrency = $('select[name="currenctCurrencyName"]')
+    let defaultCurrency = $('select[name="currenctCurrencyName"]')
       .val()
       .toUpperCase();
-    let foreignCurrency = $('select[name="foreignCurrencyName"]')
+    let outsideCurrency = $('select[name="foreignCurrencyName"]')
       .val()
       .toUpperCase();
-    let currencyAmount = $('input[name="currencyAmount"]').val();
-    getCurrencies(currentCurrency, foreignCurrency, currencyAmount);
+    let currencyTotal = $('input[name="currencyAmount"]').val();
+    getCurrencies(defaultCurrency, outsideCurrency, currencyTotal);
   });
 }
 
 $(function () {
+  //   let defaultCurrency = $('select[name="currenctCurrencyName"]')
+  //     .val()
+  //     .toUpperCase();
+  //   let outsideCurrency = $('select[name="foreignCurrencyName"]')
+  //     .val()
+  //     .toUpperCase();
+  //   let currencyTotal = $('input[name="currencyAmount"]').val();
+  //   console.log(defaultCurrency, outsideCurrency, currencyTotal);
   console.log("App loaded! Waiting for submit!");
   watchForm();
 });
