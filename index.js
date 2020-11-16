@@ -20,8 +20,25 @@ function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
     requestOptions
   )
     .then((response) => response.json())
-    .then((responseJson) => console.log(responseJson))
+    .then((responseJson) => displayCurrencies(responseJson))
     .catch((error) => console.log("error" + error));
+}
+
+function displayCurrencies(responseJson) {
+  $(".results").empty();
+
+  if (responseJson.success === true) {
+    $(".results").append(
+      `<div class="exchangeInfo">
+        <h3>This is your conversion:</h3>
+        <p>You are giving ${responseJson.query.amount} ${responseJson.query.from}</p>
+        <p>Which will be converted to ${responseJson.result} ${responseJson.query.to}</p>
+       </div>`
+    );
+  }
+
+  //display the results section
+  $(".results").removeClass("hidden");
 }
 
 function watchForm() {
@@ -39,13 +56,13 @@ function watchForm() {
 }
 
 $(function () {
-  //   let defaultCurrency = $('select[name="currenctCurrencyName"]')
-  //     .val()
-  //     .toUpperCase();
-  //   let outsideCurrency = $('select[name="foreignCurrencyName"]')
-  //     .val()
-  //     .toUpperCase();
-  //   let currencyTotal = $('input[name="currencyAmount"]').val();
+  // let defaultCurrency = $('select[name="currenctCurrencyName"]')
+  //   .val()
+  //   .toUpperCase();
+  // let outsideCurrency = $('select[name="foreignCurrencyName"]')
+  //   .val()
+  //   .toUpperCase();
+  // let currencyTotal = $('input[name="currencyAmount"]').val();
   //   console.log(defaultCurrency, outsideCurrency, currencyTotal);
   console.log("App loaded! Waiting for submit!");
   watchForm();
