@@ -9,48 +9,52 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
     <link href="main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="wrapper">
-      <header>
+    <header>
+      <div class="header">
         <h1>Currency Exchange</h1>
-      </header>
-      <div class="form">
-        <form>
-          <label for="currentCurrencyName"
-            >Please enter the currency you currently use:</label
-          >
-          <select
-            name="currentCurrencyName"
-            id="currentCurrencyName"
-            class="currentCurrencyName"
-          ></select>
-
-          <label for="foreignCurrencyName"
-            >Please enter the currency you wish to convert to:</label
-          >
-          <select
-            name="foreignCurrencyName"
-            id="foreignCurrencyName"
-            class="foreignCurrencyName"
-          ></select>
-
-          <label for="currencyAmount"
-            >Select the amount of currency to exchange:</label
-          >
-          <input
-            type="number"
-            name="currencyAmount"
-            class="js-currency-amount"
-            value="100"
-          />
-          <input type="submit" value="Submit" />
-        </form>
       </div>
-      <p id="js-error-message" class="error-message"></p>
-      <section class="results hidden"></section>
+    </header>
+    <div class="form">
+      <form>
+        <label for="currentCurrencyName"
+          >Please enter the currency you currently use:</label
+        >
+        <select
+          name="currentCurrencyName"
+          id="currentCurrencyName"
+          class="currentCurrencyName"
+        ></select>
+
+        <label for="foreignCurrencyName"
+          >Please enter the currency you wish to convert to:</label
+        >
+        <select
+          name="foreignCurrencyName"
+          id="foreignCurrencyName"
+          class="foreignCurrencyName"
+        ></select>
+
+        <label for="currencyAmount"
+          >Select the amount of currency to exchange:</label
+        >
+        <input
+          type="number"
+          name="currencyAmount"
+          class="js-currency-amount"
+          value="100"
+        />
+        <input type="submit" class="submit" value="Submit" />
+      </form>
     </div>
+    <p id="js-error-message" class="error-message"></p>
+    <section class="results hidden"></section>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"

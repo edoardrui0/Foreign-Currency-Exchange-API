@@ -77,14 +77,6 @@ function watchForm() {
 }
 
 $(function () {
-  // let defaultCurrency = $('select[name="currenctCurrencyName"]')
-  //   .val()
-  //   .toUpperCase();
-  // let outsideCurrency = $('select[name="foreignCurrencyName"]')
-  //   .val()
-  //   .toUpperCase();
-  // let currencyTotal = $('input[name="currencyAmount"]').val();
-  //   console.log(defaultCurrency, outsideCurrency, currencyTotal);
   console.log("App loaded! Waiting for submit!");
   watchForm();
   getSymbols();
