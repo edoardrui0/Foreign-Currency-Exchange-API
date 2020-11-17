@@ -21,7 +21,34 @@ function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
   )
     .then((response) => response.json())
     .then((responseJson) => displayCurrencies(responseJson))
-    .catch((error) => console.log("error" + error));
+    .catch((error) => console.warn("error" + error));
+}
+
+function getSymbols() {
+  fetch(
+    `https://data.fixer.io/api/symbols?access_key=${apiKey}`,
+    requestOptions
+  )
+    .then((symbols) => symbols.json())
+    .then((symbolsJson) => displaySymbols(symbolsJson))
+    .catch((error) => console.warn("error" + error));
+}
+
+getSymbols();
+
+function displaySymbols(symbolsJson) {
+  $(".results").empty();
+
+  const keys = Object.keys(symbolsJson.symbols);
+  for (const value of keys) {
+    $(".currenctCurrencyName").append(
+      `<option value="${value}">${value}</option>`
+    );
+
+    $(".foreignCurrencyName").append(
+      `<option value="${value}">${value}</option>`
+    );
+  }
 }
 
 function displayCurrencies(responseJson) {
@@ -44,12 +71,8 @@ function displayCurrencies(responseJson) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    let defaultCurrency = $('select[name="currenctCurrencyName"]')
-      .val()
-      .toUpperCase();
-    let outsideCurrency = $('select[name="foreignCurrencyName"]')
-      .val()
-      .toUpperCase();
+    let defaultCurrency = $('select[name="currenctCurrencyName"]').val();
+    let outsideCurrency = $('select[name="foreignCurrencyName"]').val();
     let currencyTotal = $('input[name="currencyAmount"]').val();
     getCurrencies(defaultCurrency, outsideCurrency, currencyTotal);
   });
