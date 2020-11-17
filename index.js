@@ -16,7 +16,7 @@ let apiKey = "829db5a4a4e6684ed3818e72c0c8a7bd";
 
 function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
   fetch(
-    `http://data.fixer.io/api/convert?access_key=${apiKey}&from=${currentCurrency}&to=${foreignCurrency}&amount=${currencyAmount}`,
+    `https://data.fixer.io/api/convert?access_key=${apiKey}&from=${currentCurrency}&to=${foreignCurrency}&amount=${currencyAmount}`,
     requestOptions
   )
     .then((response) => response.json())
