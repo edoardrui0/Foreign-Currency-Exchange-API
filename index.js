@@ -34,14 +34,12 @@ function getSymbols() {
     .catch((error) => console.warn("error" + error));
 }
 
-getSymbols();
-
 function displaySymbols(symbolsJson) {
   $(".results").empty();
 
   const keys = Object.keys(symbolsJson.symbols);
   for (const value of keys) {
-    $(".currenctCurrencyName").append(
+    $(".currentCurrencyName").append(
       `<option value="${value}">${value}</option>`
     );
 
@@ -71,7 +69,7 @@ function displayCurrencies(responseJson) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    let defaultCurrency = $('select[name="currenctCurrencyName"]').val();
+    let defaultCurrency = $('select[name="currentCurrencyName"]').val();
     let outsideCurrency = $('select[name="foreignCurrencyName"]').val();
     let currencyTotal = $('input[name="currencyAmount"]').val();
     getCurrencies(defaultCurrency, outsideCurrency, currencyTotal);
@@ -89,4 +87,5 @@ $(function () {
   //   console.log(defaultCurrency, outsideCurrency, currencyTotal);
   console.log("App loaded! Waiting for submit!");
   watchForm();
+  getSymbols();
 });
