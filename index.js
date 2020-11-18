@@ -15,6 +15,7 @@ var requestOptions = {
 let apiKey = "829db5a4a4e6684ed3818e72c0c8a7bd";
 
 function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
+  // fetched the convert endpoint here
   fetch(
     `https://data.fixer.io/api/convert?access_key=${apiKey}&from=${currentCurrency}&to=${foreignCurrency}&amount=${currencyAmount}`,
     requestOptions
@@ -25,6 +26,8 @@ function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
 }
 
 function getSymbols() {
+  // fetched the symbols endpoint here.
+  // We use these symbols and import it into a dropdown menu
   fetch(
     `https://data.fixer.io/api/symbols?access_key=${apiKey}`,
     requestOptions
@@ -37,6 +40,8 @@ function getSymbols() {
 function displaySymbols(symbolsJson) {
   $(".results").empty();
 
+  // after every loop, the value, which is the currency abbreviation,
+  // gets loaded into the dropdown menu for the user to pick out
   const keys = Object.keys(symbolsJson.symbols);
   for (const value of keys) {
     $(".currentCurrencyName").append(
@@ -52,6 +57,8 @@ function displaySymbols(symbolsJson) {
 function displayCurrencies(responseJson) {
   $(".results").empty();
 
+  // pretty self explanatory here.
+  // the "amount", "from" and "to" are all values that show the users input
   if (responseJson.success === true) {
     $(".results").append(
       `<div class="exchangeInfo">
@@ -69,6 +76,7 @@ function displayCurrencies(responseJson) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
+    // get the value of each other the select's/input's so we can put it into the API URL
     let defaultCurrency = $('select[name="currentCurrencyName"]').val();
     let outsideCurrency = $('select[name="foreignCurrencyName"]').val();
     let currencyTotal = $('input[name="currencyAmount"]').val();
