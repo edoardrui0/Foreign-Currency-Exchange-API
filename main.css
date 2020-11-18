@@ -37,7 +37,7 @@ form,
 }
 
 label {
-  margin-top: 20px;
+  margin: 20px 0 10px 0;
   font-weight: 500;
   color: #505050;
 }
@@ -60,8 +60,12 @@ input {
   white-space: nowrap;
 }
 
+.results,
 .submit {
-  margin-top: 15px;
+  margin-top: 25px;
+}
+
+.submit {
   font-weight: 500;
 }
 
