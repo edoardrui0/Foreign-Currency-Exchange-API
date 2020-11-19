@@ -57,8 +57,8 @@ function displayCurrencies(responseJson) {
     $(".results").append(
       `<div class="exchangeInfo">
         <h3>This is your conversion:</h3>
-        <p>You are giving ${responseJson.query.amount} ${responseJson.query.from}</p>
-        <p>Which will be converted to ${responseJson.result} ${responseJson.query.to}</p>
+        <p>You are converting ${responseJson.query.amount} ${responseJson.query.from} to ${responseJson.query.to}</p>
+        <p>The conversion will be ${responseJson.result} ${responseJson.query.to}</p>
        </div>`
     );
   }
