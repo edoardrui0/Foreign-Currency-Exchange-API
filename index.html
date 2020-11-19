@@ -22,7 +22,28 @@
       </div>
     </header>
     <main class="form">
-      <form>
+      <form class="countryDropdowns">
+        <label for="currentCountry">
+          Please enter the country you are visiting from:
+        </label>
+        <select
+          name="currentCountry"
+          id="currentCountry"
+          class="homeCountry"
+        ></select>
+
+        <label for="foreignCountry">
+          Please enter the country you are planning to visit:
+        </label>
+        <select
+          name="foreignCountry"
+          id="foreignCountry"
+          class="visitingCountry"
+        ></select>
+        <input type="submit" class="country-submit" value="Submit" />
+      </form>
+
+      <form class="currencySymbolsDropdown hidden-currency">
         <label for="currentCurrencyName"
           >Please enter the currency you currently use:</label
         >
@@ -50,7 +71,7 @@
           class="js-currency-amount"
           value="100"
         />
-        <input type="submit" class="submit" value="Submit" />
+        <input type="submit" class="currency-submit" value="Submit" />
       </form>
     </main>
     <section class="results hidden"></section>

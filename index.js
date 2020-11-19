@@ -25,33 +25,67 @@ function getCurrencies(currentCurrency, foreignCurrency, currencyAmount) {
     .catch((error) => console.warn("error" + error));
 }
 
-function getSymbols() {
-  // fetched the symbols endpoint here.
-  // We use these symbols and import it into a dropdown menu
-  fetch(
-    `https://data.fixer.io/api/symbols?access_key=${apiKey}`,
-    requestOptions
-  )
-    .then((symbols) => symbols.json())
-    .then((symbolsJson) => displaySymbols(symbolsJson))
+function getCountries() {
+  fetch(`https://restcountries.eu/rest/v2/all`, requestOptions)
+    .then((countries) => countries.json())
+    .then((countriesJson) => displayCountries(countriesJson))
     .catch((error) => console.warn("error" + error));
 }
 
-function displaySymbols(symbolsJson) {
-  $(".results").empty();
+function getHomeSymbols(homeCurrencySymbol) {
+  fetch(
+    `https://restcountries.eu/rest/v2/currency/${homeCurrencySymbol}`,
+    requestOptions
+  )
+    .then((homeSymbols) => homeSymbols.json())
+    .then((homeSymbolsJson) => displayHomeSymbols(homeSymbolsJson))
+    .catch((error) => console.warn("error" + error));
+}
 
-  // after every loop, the value, which is the currency abbreviation,
-  // gets loaded into the dropdown menu for the user to pick out
-  const keys = Object.keys(symbolsJson.symbols);
-  for (const value of keys) {
-    $(".currentCurrencyName").append(
-      `<option value="${value}">${value}</option>`
+function getVisitingSymbols(visitingCurrencySymbol) {
+  fetch(
+    `https://restcountries.eu/rest/v2/currency/${visitingCurrencySymbol}`,
+    requestOptions
+  )
+    .then((visitingSymbols) => visitingSymbols.json())
+    .then((visitingSymbolsJson) => displayVisitingSymbols(visitingSymbolsJson))
+    .catch((error) => console.warn("error" + error));
+}
+
+function displayCountries(countriesJson) {
+  for (let i = 0; i < countriesJson.length; i++) {
+    $(".homeCountry").append(
+      `<option value="${countriesJson[i].currencies[0].code}">${countriesJson[i].name}</option>`
     );
 
-    $(".foreignCurrencyName").append(
-      `<option value="${value}">${value}</option>`
+    $(".visitingCountry").append(
+      `<option value="${countriesJson[i].currencies[0].code}">${countriesJson[i].name}</option>`
     );
   }
+}
+
+function displayHomeSymbols(homeSymbolsJson) {
+  // $(".results").empty();
+
+  for (let i = 0; i < homeSymbolsJson.length; i++) {
+    $(".currentCurrencyName").append(
+      `<option value="${homeSymbolsJson[i].currencies[0].code}">${homeSymbolsJson[i].currencies[0].code}</option>`
+    );
+  }
+
+  $(".currencySymbolsDropdown").removeClass("hidden-currency");
+}
+
+function displayVisitingSymbols(visitingSymbolsJson) {
+  // $(".results").empty();
+
+  for (let i = 0; i < visitingSymbolsJson.length; i++) {
+    $(".foreignCurrencyName").append(
+      `<option value="${visitingSymbolsJson[i].currencies[0].code}">${visitingSymbolsJson[i].currencies[0].code}</option>`
+    );
+  }
+
+  $(".currencySymbolsDropdown").removeClass("hidden-currency");
 }
 
 function displayCurrencies(responseJson) {
@@ -74,7 +108,7 @@ function displayCurrencies(responseJson) {
 }
 
 function watchForm() {
-  $("form").submit((event) => {
+  $(".currencySymbolsDropdown").submit((event) => {
     event.preventDefault();
     // get the value of each other the select's/input's so we can put it into the API URL
     let defaultCurrency = $('select[name="currentCurrencyName"]').val();
@@ -84,8 +118,19 @@ function watchForm() {
   });
 }
 
+function watchSymbols() {
+  $(".countryDropdowns").submit((event) => {
+    event.preventDefault();
+    let homeCountry = $('select[name="currentCountry"]').val();
+    let visitingCountry = $('select[name="foreignCountry"]').val();
+    getHomeSymbols(homeCountry);
+    getVisitingSymbols(visitingCountry);
+  });
+}
+
 $(function () {
   console.log("App loaded! Waiting for submit!");
   watchForm();
-  getSymbols();
+  getCountries();
+  watchSymbols();
 });
