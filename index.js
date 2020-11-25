@@ -30,6 +30,7 @@ $(document).ready(function () {
   $(".latest-btn").click(displayLatestRatesForm);
   $(".historical-btn").click(displayHistoricalRatesForm);
   $(".convert-btn").click(displayConversionRatesForm);
+  $(".timeSeries-btn").click(displayTimeSeriesRatesForm);
 
   // Attach click handlres to submit the forms
   $(".latest-rates-form").on("click", ".latest-submit", getLatestRates);
@@ -75,9 +76,11 @@ function displayLatestRatesForm(event) {
   $(".latest-rates-form").removeClass("hidden");
   $(".historical-rates-form").addClass("hidden");
   $(".conversion-rates-form").addClass("hidden");
+  $(".timeSeries-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
+  $(".timeSeries-results").addClass("hidden");
 }
 
 function displayHistoricalRatesForm(event) {
@@ -96,9 +99,11 @@ function displayHistoricalRatesForm(event) {
   $(".historical-rates-form").removeClass("hidden");
   $(".latest-rates-form").addClass("hidden");
   $(".conversion-rates-form").addClass("hidden");
+  $(".timeSeries-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
+  $(".timeSeries-results").addClass("hidden");
 }
 
 function displayConversionRatesForm(event) {
@@ -117,9 +122,34 @@ function displayConversionRatesForm(event) {
   $(".conversion-rates-form").removeClass("hidden");
   $(".latest-rates-form").addClass("hidden");
   $(".historical-rates-form").addClass("hidden");
+  $(".timeSeries-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
+  $(".timeSeries-results").addClass("hidden");
+}
+
+function displayTimeSeriesRatesForm(event) {
+  event.preventDefault();
+  $(".timeSeries-base").empty();
+  $(".timeSeries-foreign").empty();
+
+  const entries = Object.entries(state.symbols);
+  for (const [currencySymbol, countryName] of entries) {
+    $(".timeSeries-base").append(`
+            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
+    $(".timeSeries-foreign").append(`
+            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
+  }
+
+  $(".timeSeries-rates-form").removeClass("hidden");
+  $(".latest-rates-form").addClass("hidden");
+  $(".historical-rates-form").addClass("hidden");
+  $(".conversion-rates-form").addClass("hidden");
+  $(".latest-results").addClass("hidden");
+  $(".historical-results").addClass("hidden");
+  $(".conversion-results").addClass("hidden");
+  $(".timeSeries-results").addClass("hidden");
 }
 
 function getLatestRates(event) {
