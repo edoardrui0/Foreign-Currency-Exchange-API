@@ -14,36 +14,66 @@
       rel="stylesheet"
     />
     <link href="main.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
       <div class="header">
         <h1>Currency Exchange</h1>
       </div>
+      <div>
+        <button class="latest-btn">Latest</button>
+        <button class="historical-btn">Historical</button>
+        <button class="convert-btn">Convert</button>
+        <button class="timeSeries-btn">Time-Series</button>
+        <button class="fluctuation-btn">Fluctuation</button>
+      </div>
     </header>
     <main class="form">
-      <!-- <form class="countryDropdowns">
-        <label for="currentCountry">
-          Please enter the country you are visiting from:
-        </label>
+      <form class="latest-rates-form hidden">
+        <label for="latest-base"></label>
         <select
-          name="currentCountry"
-          id="currentCountry"
-          class="homeCountry"
+          name="latest-base"
+          id="latest-base"
+          class="latest-base"
         ></select>
 
-        <label for="foreignCountry">
-          Please enter the country you are planning to visit:
-        </label>
+        <label for="latest-foreign"></label>
         <select
-          name="foreignCountry"
-          id="foreignCountry"
-          class="visitingCountry"
+          name="latest-foreign"
+          id="latest-foreign"
+          class="latest-foreign"
         ></select>
-        <input type="submit" class="country-submit" value="Submit" />
-      </form> -->
+        <input type="submit" class="latest-submit" value="Submit" />
+      </form>
 
-      <form class="currencySymbolsDropdown hidden-currency">
+      <form class="historical-rates-form hidden">
+        <input
+          type="date"
+          id="datefield"
+          name="historical-rate-date"
+          min="2000-05-31"
+        />
+        <label for="historical-base"></label>
+        <select
+          name="historical-base"
+          id="historical-base"
+          class="historical-base"
+        ></select>
+
+        <label for="historical-foreign"></label>
+        <select
+          name="historical-foreign"
+          id="historical-foreign"
+          class="historical-foreign"
+        ></select>
+        <input type="submit" class="historical-submit" value="Submit" />
+      </form>
+
+      <form class="conversion-rates-form hidden">
         <label for="currentCurrencyName"
           >Please enter the currency you currently use:</label
         >
@@ -73,14 +103,77 @@
         />
         <input type="submit" class="currency-submit" value="Submit" />
       </form>
+
+      <form class="timeSeries-rates-form hidden">
+        <input
+          type="date"
+          id="datefield"
+          name="timeSeries-rate-startDate"
+          min="2000-05-31"
+        />
+        <input
+          type="date"
+          id="datefield"
+          name="timeSeries-rate-endDate"
+          min="2000-05-31"
+        />
+        <label for="timeSeries-base"></label>
+        <select
+          name="timeSeries-base"
+          id="timeSeries-base"
+          class="timeSeries-base"
+        ></select>
+
+        <label for="timeSeries-foreign"></label>
+        <select
+          name="timeSeries-foreign"
+          id="timeSeries-foreign"
+          class="timeSeries-foreign"
+        ></select>
+        <input type="submit" class="timeSeries-submit" value="Submit" />
+      </form>
+
+      <form class="fluctuation-rates-form hidden">
+        <input
+          type="date"
+          id="datefield"
+          name="fluctuation-rate-startDate"
+          min="2000-05-31"
+        />
+        <input
+          type="date"
+          id="datefield"
+          name="fluctuation-rate-endDate"
+          min="2000-05-31"
+        />
+        <label for="fluctuation-base"></label>
+        <select
+          name="fluctuation-base"
+          id="fluctuation-base"
+          class="fluctuation-base"
+        ></select>
+
+        <label for="fluctuation-foreign"></label>
+        <select
+          name="fluctuation-foreign"
+          id="fluctuation-foreign"
+          class="fluctuation-foreign"
+        ></select>
+        <input type="submit" class="fluctuation-submit" value="Submit" />
+      </form>
     </main>
-    <section class="results hidden"></section>
+    <section class="latest-results hidden"></section>
+    <section class="historical-results hidden"></section>
+    <section class="conversion-results hidden"></section>
+    <section class="timeSeries-results hidden"></section>
+    <section class="fluctuation-results hidden"></section>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
