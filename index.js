@@ -45,6 +45,16 @@ $(document).ready(function () {
     ".currency-submit",
     getConversionRates
   );
+  $(".timeSeries-rates-form").on(
+    "click",
+    ".timeSeries-submit",
+    getTimeSeriesRates
+  );
+  $(".fluctuation-rates-form").on(
+    "click",
+    "fluctuation-submit",
+    getFluctuationRates
+  );
 });
 
 function getSymbols() {
@@ -248,6 +258,49 @@ function getConversionRates(event) {
     .catch((error) => console.warn("error" + error));
 }
 
+function getTimeSeriesRates(event) {
+  event.preventDefault();
+  // get the value of each other the select's/input's so we can put it into the API URL
+
+  let timeSeriesStartDate = $('input[name="timeSeries-rate-startDate"]').val();
+  let timeSeriesEndDate = $('input[name="timeSeries-rate-endDate"]').val();
+  let defaultCurrency = $('select[name="timeSeries-base"]').val();
+  let outsideCurrency = $('select[name="timeSeries-foreign"]').val();
+
+  // fetched the convert endpoint here
+  fetch(
+    `https://data.fixer.io/api/timeseries?access_key=${apiKey}&start_date=${timeSeriesStartDate}&end_date=${timeSeriesEndDate}&base=${defaultCurrency}&symbols=${outsideCurrency}`,
+    requestOptions
+  )
+    .then((timeSeriesRateResponse) => timeSeriesRateResponse.json())
+    .then((timeSeriesRateResponseJson) =>
+      console.log(timeSeriesRateResponseJson)
+    )
+    .catch((error) => console.warn("error" + error));
+}
+
+function getFluctuationRates(event) {
+  event.preventDefault();
+
+  let fluctuationStartDate = $(
+    'input[name="fluctuation-rate-startDate"]'
+  ).val();
+  let fluctuationEndDate = $('input[name="fluctuation-rate-endDate"]').val();
+  let defaultCurrency = $('select[name="fluctuation-base"]').val();
+  let outsideCurrency = $('select[name="fluctuation-foreign"]').val();
+
+  // fetched the convert endpoint here
+  fetch(
+    `https://data.fixer.io/api/fluctuation?access_key=${apiKey}&start_date=${fluctuationStartDate}&end_date=${fluctuationEndDate}&base=${defaultCurrency}&symbols=${outsideCurrency}`,
+    requestOptions
+  )
+    .then((fluctuationRateResponse) => fluctuationRateResponse.json())
+    .then((fluctuationRateResponseJson) =>
+      console.log(fluctuationRateResponseJson)
+    )
+    .catch((error) => console.warn("error" + error));
+}
+
 function displayLatestRates(latestRateResponseJson) {
   $(".latest-results").empty();
 
@@ -272,7 +325,6 @@ function displayHistoricalRates(historicalRateResponseJson) {
     <p>On ${historicalRateResponseJson.date}</p>
     <p>1 ${historicalRateResponseJson.base} equaled ${entries[0][1]} ${entries[0][0]}</p>`);
   }
-  console.log(historicalRateResponseJson);
 
   $(".historical-results").removeClass("hidden");
 }
