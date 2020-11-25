@@ -31,6 +31,7 @@ $(document).ready(function () {
   $(".historical-btn").click(displayHistoricalRatesForm);
   $(".convert-btn").click(displayConversionRatesForm);
   $(".timeSeries-btn").click(displayTimeSeriesRatesForm);
+  $(".fluctuation-btn").click(displayFluctuationRatesForm);
 
   // Attach click handlres to submit the forms
   $(".latest-rates-form").on("click", ".latest-submit", getLatestRates);
@@ -77,10 +78,12 @@ function displayLatestRatesForm(event) {
   $(".historical-rates-form").addClass("hidden");
   $(".conversion-rates-form").addClass("hidden");
   $(".timeSeries-rates-form").addClass("hidden");
+  $(".fluctuation-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
   $(".timeSeries-results").addClass("hidden");
+  $(".fluctuation-results").addClass("hidden");
 }
 
 function displayHistoricalRatesForm(event) {
@@ -100,10 +103,12 @@ function displayHistoricalRatesForm(event) {
   $(".latest-rates-form").addClass("hidden");
   $(".conversion-rates-form").addClass("hidden");
   $(".timeSeries-rates-form").addClass("hidden");
+  $(".fluctuation-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
   $(".timeSeries-results").addClass("hidden");
+  $(".fluctuation-results").addClass("hidden");
 }
 
 function displayConversionRatesForm(event) {
@@ -123,10 +128,12 @@ function displayConversionRatesForm(event) {
   $(".latest-rates-form").addClass("hidden");
   $(".historical-rates-form").addClass("hidden");
   $(".timeSeries-rates-form").addClass("hidden");
+  $(".fluctuation-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
   $(".timeSeries-results").addClass("hidden");
+  $(".fluctuation-results").addClass("hidden");
 }
 
 function displayTimeSeriesRatesForm(event) {
@@ -146,10 +153,37 @@ function displayTimeSeriesRatesForm(event) {
   $(".latest-rates-form").addClass("hidden");
   $(".historical-rates-form").addClass("hidden");
   $(".conversion-rates-form").addClass("hidden");
+  $(".fluctuation-rates-form").addClass("hidden");
   $(".latest-results").addClass("hidden");
   $(".historical-results").addClass("hidden");
   $(".conversion-results").addClass("hidden");
   $(".timeSeries-results").addClass("hidden");
+  $(".fluctuation-results").addClass("hidden");
+}
+
+function displayFluctuationRatesForm(event) {
+  event.preventDefault();
+  $(".fluctuation-base").empty();
+  $(".fluctuation-foreign").empty();
+
+  const entries = Object.entries(state.symbols);
+  for (const [currencySymbol, countryName] of entries) {
+    $(".fluctuation-base").append(`
+            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
+    $(".fluctuation-foreign").append(`
+            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
+  }
+
+  $(".fluctuation-rates-form").removeClass("hidden");
+  $(".latest-rates-form").addClass("hidden");
+  $(".historical-rates-form").addClass("hidden");
+  $(".conversion-rates-form").addClass("hidden");
+  $(".timeSeries-rates-form").addClass("hidden");
+  $(".latest-results").addClass("hidden");
+  $(".historical-results").addClass("hidden");
+  $(".conversion-results").addClass("hidden");
+  $(".timeSeries-results").addClass("hidden");
+  $(".fluctuation-results").addClass("hidden");
 }
 
 function getLatestRates(event) {
