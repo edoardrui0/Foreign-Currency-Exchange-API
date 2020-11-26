@@ -274,7 +274,7 @@ function getTimeSeriesRates(event) {
   )
     .then((timeSeriesRateResponse) => timeSeriesRateResponse.json())
     .then((timeSeriesRateResponseJson) =>
-      console.log(timeSeriesRateResponseJson)
+      displayTimeSeriesRates(timeSeriesRateResponseJson)
     )
     .catch((error) => console.warn("error" + error));
 }
@@ -345,6 +345,29 @@ function displayConversionRates(conversionRateResponseJson) {
   }
   //display the results section
   $(".conversion-results").removeClass("hidden");
+}
+
+function displayTimeSeriesRates(timeSeriesRateResponseJson) {
+  $(".timeSeries-results").empty();
+
+  const entries = Object.entries(timeSeriesRateResponseJson.rates);
+  let outsideCurrency = $('select[name="timeSeries-foreign"]').val();
+  let timeSeriesStartDate = $('input[name="timeSeries-rate-startDate"]').val();
+  let timeSeriesEndDate = $('input[name="timeSeries-rate-endDate"]').val();
+
+  $(".timeSeries-results").append(
+    `<h3>You are requesting the historical rates between ${timeSeriesRateResponseJson.base} and ${outsideCurrency} from ${timeSeriesStartDate} through ${timeSeriesEndDate}</h3>
+    <p>Base currency: 1 ${timeSeriesRateResponseJson.base}</p>
+    <p>Rates:</p>`
+  );
+  for (const [date, currency] of entries) {
+    const entry = Object.entries(currency);
+    $(".timeSeries-results").append(`
+    <p>${date}</p>
+    <p>${entry[0][1]} ${entry[0][0]}</p>`);
+  }
+
+  $(".timeSeries-results").removeClass("hidden");
 }
 
 function todaysDate() {
