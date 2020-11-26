@@ -1,6 +1,6 @@
-<h1>Foreign Currency Exchange API</h1>
+<h1>Currency Exchange API</h1>
 
-<p>A app that is useful for travellers to quickly convert any form of currency of their choosing.</p>
+<p>A app that is useful for anyone to quickly see latest or historical currency exchange rates and convert any form of currency of their choosing.</p>
 <p>Click <a href="https://edoardrui0.github.io/Foreign-Currency-Exchange-API/" target="_blank">here</a> to visit the site</p>
 
 <h2>Screenshots</h2>
