@@ -1,4 +1,4 @@
-/* * {
+* {
   box-sizing: border-box;
   font-family: "Work Sans";
   font-size: 16px;
@@ -23,12 +23,28 @@ header {
   font-size: 2em;
 }
 
+.header-buttons button {
+  width: 75%;
+  margin: 15px 0;
+  border-style: none;
+  border: 1.75px solid rgb(133, 133, 133);
+  border-radius: 5px;
+  box-shadow: 2px 4px 4px rgb(61, 61, 61);
+}
+
 .form {
   padding: 0 45px;
 }
 
+.hidden {
+  display: none;
+}
+
 form,
-.results {
+.latest-results,
+.historical-results,
+.conversion-results,
+.timeSeries-results {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,6 +56,14 @@ label {
   margin: 20px 0 10px 0;
   font-weight: 500;
   color: #505050;
+}
+
+.featureInfo {
+  width: 100%;
+}
+
+#datefield {
+  margin-bottom: 15px;
 }
 
 select,
@@ -60,25 +84,60 @@ input {
   white-space: nowrap;
 }
 
-.results,
-.submit {
+.latest-results,
+.historical-results,
+.conversion-results,
+.timeSeries-results,
+.latest-submit,
+.historical-submit,
+.conversion-submit,
+.timeSeries-submit {
   margin-top: 25px;
 }
 
-.submit {
+.latest-submit,
+.historical-submit,
+.conversion-submit,
+.timeSeries-submit {
   font-weight: 500;
 }
 
-.exchangeInfo h3 {
+.historical-error,
+.timeSeries-error {
+  color: red;
   font-size: 1.5rem;
 }
 
+.exchangeInfo h3 {
+  font-size: 1rem;
+}
+
 .exchangeInfo p {
-  font-size: 1.25rem;
+  font-size: 1rem;
+}
+
+.timeSeriesInfo {
+  width: 80%;
+}
+
+.timeSeriesRates-underline {
+  text-decoration: underline;
+}
+
+.timeSeriesBox {
+  border: 2px solid rgb(131, 131, 131);
+  border-radius: 5px;
+  width: 80%;
+  padding: 5px;
+  margin: 15px 0;
 }
 
 .hidden {
   display: none;
+}
+
+footer {
+  margin-top: 55px;
 }
 
 @media all and (min-width: 600px) {
@@ -95,8 +154,30 @@ input {
   input {
     width: 550px;
   }
-} */
 
-.hidden {
-  display: none;
+  .header-buttons button {
+    width: auto;
+    font-size: 1.125rem;
+    margin-left: 15px;
+  }
+
+  .featureInfo {
+    width: 65%;
+    font-size: 1.25rem;
+  }
+
+  .exchangeInfo h3,
+  .exchangeInfo p,
+  .timeSeriesInfo h3,
+  .timeSeriesInfo p {
+    font-size: 1.5rem;
+  }
+
+  .timeSeriesBox p {
+    font-size: 1.25rem;
+  }
+
+  footer {
+    margin-top: 75px;
+  }
 }

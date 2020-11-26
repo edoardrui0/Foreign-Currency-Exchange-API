@@ -12,7 +12,7 @@ var requestOptions = {
   redirect: "follow",
 };
 
-let apiKey = "829db5a4a4e6684ed3818e72c0c8a7bd";
+let apiKey = "a40c6f6815ed83b90eec19c7f4f3d4b1";
 
 let state = {
   symbols: {},
@@ -31,7 +31,6 @@ $(document).ready(function () {
   $(".historical-btn").click(displayHistoricalRatesForm);
   $(".convert-btn").click(displayConversionRatesForm);
   $(".timeSeries-btn").click(displayTimeSeriesRatesForm);
-  $(".fluctuation-btn").click(displayFluctuationRatesForm);
 
   // Attach click handlres to submit the forms
   $(".latest-rates-form").on("click", ".latest-submit", getLatestRates);
@@ -42,18 +41,13 @@ $(document).ready(function () {
   );
   $(".conversion-rates-form").on(
     "click",
-    ".currency-submit",
+    ".conversion-submit",
     getConversionRates
   );
   $(".timeSeries-rates-form").on(
     "click",
     ".timeSeries-submit",
     getTimeSeriesRates
-  );
-  $(".fluctuation-rates-form").on(
-    "click",
-    "fluctuation-submit",
-    getFluctuationRates
   );
 });
 
@@ -171,31 +165,6 @@ function displayTimeSeriesRatesForm(event) {
   $(".fluctuation-results").addClass("hidden");
 }
 
-function displayFluctuationRatesForm(event) {
-  event.preventDefault();
-  $(".fluctuation-base").empty();
-  $(".fluctuation-foreign").empty();
-
-  const entries = Object.entries(state.symbols);
-  for (const [currencySymbol, countryName] of entries) {
-    $(".fluctuation-base").append(`
-            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
-    $(".fluctuation-foreign").append(`
-            <option value="${currencySymbol}">${currencySymbol} - ${countryName}</option>`);
-  }
-
-  $(".fluctuation-rates-form").removeClass("hidden");
-  $(".latest-rates-form").addClass("hidden");
-  $(".historical-rates-form").addClass("hidden");
-  $(".conversion-rates-form").addClass("hidden");
-  $(".timeSeries-rates-form").addClass("hidden");
-  $(".latest-results").addClass("hidden");
-  $(".historical-results").addClass("hidden");
-  $(".conversion-results").addClass("hidden");
-  $(".timeSeries-results").addClass("hidden");
-  $(".fluctuation-results").addClass("hidden");
-}
-
 function getLatestRates(event) {
   event.preventDefault();
 
@@ -233,7 +202,9 @@ function getHistoricalRates(event) {
 
     .catch((error) => {
       if (historicalDate === "") {
-        $(".historical-results").append(`<h3>Error! Please enter a date</h3>`);
+        $(".historical-results").append(
+          `<h3 class="historical-error">Error! Please enter a date</h3>`
+        );
         $(".historical-results").removeClass("hidden");
       }
     });
@@ -276,29 +247,19 @@ function getTimeSeriesRates(event) {
     .then((timeSeriesRateResponseJson) =>
       displayTimeSeriesRates(timeSeriesRateResponseJson)
     )
-    .catch((error) => console.warn("error" + error));
-}
-
-function getFluctuationRates(event) {
-  event.preventDefault();
-
-  let fluctuationStartDate = $(
-    'input[name="fluctuation-rate-startDate"]'
-  ).val();
-  let fluctuationEndDate = $('input[name="fluctuation-rate-endDate"]').val();
-  let defaultCurrency = $('select[name="fluctuation-base"]').val();
-  let outsideCurrency = $('select[name="fluctuation-foreign"]').val();
-
-  // fetched the convert endpoint here
-  fetch(
-    `https://data.fixer.io/api/fluctuation?access_key=${apiKey}&start_date=${fluctuationStartDate}&end_date=${fluctuationEndDate}&base=${defaultCurrency}&symbols=${outsideCurrency}`,
-    requestOptions
-  )
-    .then((fluctuationRateResponse) => fluctuationRateResponse.json())
-    .then((fluctuationRateResponseJson) =>
-      console.log(fluctuationRateResponseJson)
-    )
-    .catch((error) => console.warn("error" + error));
+    .catch((error) => {
+      if (timeSeriesStartDate === "") {
+        $(".timeSeries-results").append(
+          `<h3 class="timeSeries-error">Error! Please enter a start date!</h3>`
+        );
+        $(".timeSeries-results").removeClass("hidden");
+      } else if (timeSeriesEndDate === "") {
+        $(".timeSeries-results").append(
+          `<h3 class="timeSeries-error">Error! Please enter a end date!</h3>`
+        );
+        $(".timeSeries-results").removeClass("hidden");
+      }
+    });
 }
 
 function displayLatestRates(latestRateResponseJson) {
@@ -307,8 +268,10 @@ function displayLatestRates(latestRateResponseJson) {
   const entries = Object.entries(latestRateResponseJson.rates);
   if (latestRateResponseJson.success === true) {
     $(".latest-results").append(
-      `<h3>Here is the latest exchange rate between the two currencies, updated every 60 seconds:</h3>
-      <p>1 ${latestRateResponseJson.base} equals ${entries[0][1]} ${entries[0][0]}</p>`
+      `<div class="exchangeInfo">
+      <h3>Here is the latest exchange rate between the two currencies:</h3>
+      <p>1 ${latestRateResponseJson.base} equals ${entries[0][1]} ${entries[0][0]}</p>
+      <div>`
     );
   }
 
@@ -320,10 +283,12 @@ function displayHistoricalRates(historicalRateResponseJson) {
 
   const entries = Object.entries(historicalRateResponseJson.rates);
   if (historicalRateResponseJson.success === true) {
-    $(".historical-results").append(`
+    $(".historical-results").append(
+      `<div class="exchangeInfo">
     <h3>This is the exchange rate between the two currencies on ${historicalRateResponseJson.date}</h3>
-    <p>On ${historicalRateResponseJson.date}</p>
-    <p>1 ${historicalRateResponseJson.base} equaled ${entries[0][1]} ${entries[0][0]}</p>`);
+    <p>1 ${historicalRateResponseJson.base} equaled ${entries[0][1]} ${entries[0][0]}</p>
+    </div>`
+    );
   }
 
   $(".historical-results").removeClass("hidden");
@@ -356,15 +321,19 @@ function displayTimeSeriesRates(timeSeriesRateResponseJson) {
   let timeSeriesEndDate = $('input[name="timeSeries-rate-endDate"]').val();
 
   $(".timeSeries-results").append(
-    `<h3>You are requesting the historical rates between ${timeSeriesRateResponseJson.base} and ${outsideCurrency} from ${timeSeriesStartDate} through ${timeSeriesEndDate}</h3>
+    `<div class="timeSeriesInfo">
+    <h3>You are requesting the exchange rates between ${timeSeriesRateResponseJson.base} and ${outsideCurrency} from ${timeSeriesStartDate} through ${timeSeriesEndDate}</h3>
     <p>Base currency: 1 ${timeSeriesRateResponseJson.base}</p>
-    <p>Rates:</p>`
+    <p class="timeSeriesRates-underline">Rates:</p>
+    </div>`
   );
   for (const [date, currency] of entries) {
     const entry = Object.entries(currency);
     $(".timeSeries-results").append(`
+    <div class="timeSeriesBox">
     <p>${date}</p>
-    <p>${entry[0][1]} ${entry[0][0]}</p>`);
+    <p>1 ${timeSeriesRateResponseJson.base} was ${entry[0][1]} ${entry[0][0]}</p>
+    </div>`);
   }
 
   $(".timeSeries-results").removeClass("hidden");
