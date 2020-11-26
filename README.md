@@ -18,7 +18,7 @@
 <img src="Conversion-Exchange.png">
 
 <p>The fourth button, "Time-Series Exchange Rates", adds a feature similar to the historical feature, but you can input two dates to return a list of exchange rates between those currencies within those two dates, up to 365 days</p>
-<img src="TimeSeries-exchange.png">
+<img src="TimeSeries-Exchange.png">
 
 <h2>Technologies Used</h2>
 <ul>
