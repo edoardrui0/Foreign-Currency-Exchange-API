@@ -5,17 +5,20 @@
 
 <h2>Screenshots</h2>
 
-<p>This is the main page the user will see.</p>
-<img src="main-page.jpeg">
-<p>The user can change the type of currency by clicking the dropdown menu</p>
-<img src="currency-dropdown.jpeg">
-<p>After selecting their currency, the user can input how much of the 
-first currency they want to exchange for, see the red arrow. After the user clicks submit,
-a description at the bottom will appear, declaring what the exchange rate is.</p>
-<img src="conversion.jpeg">
+<p>This is the main page upon entering the website.</p>
+<img src="MainPage.png" alt="main page for Currency Exchange API">
 
-<h2>Summary</h2>
-<p>When travelling to foreign countries, one usually does not know how much money they should take on the trip, or what will be the exchange rate. Thanks to the <a href="https://edoardrui0.github.io/Foreign-Currency-Exchange-API/" target="_blank">Foreign Currency Exchange</a> website, finding out the exact exchange rate has never been easier. Simply input the type of currency you use, whether its USD, JPY, gold or even BitCoin! Afterwards, input the currency you wish to exchange to. Then input the amount you wish to exchange and the API will happen the rest for you. It'll then accurately convert the currency for you. Enjoy your vacations!</p>
+<p>The first button, "Latest Exchange Rates", brings up two dropdown menus with a list of currencies and their respective countries/currency name. Enter two currencies to get the latest exchange rate between the two, updated every 10 minutes.</p>
+<img src="Latest-Exchange.png" alt="The latest exchange feature">
+
+<p>The second button, "Historical Exchange Rates", adds the feature of selecting a specific date (as far as May 31st, 2000) to see the exact exchange rate during those dates.</p>
+<img src="Historical-Exchange.png" alt="the historical exchange feature">
+
+<p>The third button, "Conversion Exchange Rates", accurately converts any number of base currency to a foreign currency</p>
+<img src="Conversion-Exchange.png">
+
+<p>The fourth button, "Time-Series Exchange Rates", adds a feature similar to the historical feature, but you can input two dates to return a list of exchange rates between those currencies within those two dates, up to 365 days</p>
+<img src="TimeSeries-exchange.png">
 
 <h2>Technologies Used</h2>
 <ul>
